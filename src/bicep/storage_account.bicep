@@ -25,7 +25,7 @@ param minimumTlsVersion string = 'TLS1_2'
   'east us'
   'west us'
 ])
-param location string ='east us'
+param location string ='west us'
 
 resource str 'Microsoft.Storage/storageAccounts@2023-05-01'  = {
   kind:'StorageV2'
