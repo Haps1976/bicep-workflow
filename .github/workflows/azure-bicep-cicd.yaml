@@ -31,7 +31,8 @@ jobs:
             creds: ${{ secrets.AZURE_SPN }}
       - name: az bicep deploy
         run: |
-         az deployment group create --resource-group rg-demo --template-file .\storage_account.bicep
+         working-directory: '${{github.workspace}}/src/bicep'
+         az deployment group create --resource-group rg-demo --template-file ./storage_account.bicep
 
 
 
