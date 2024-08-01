@@ -12,45 +12,42 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-    name: 'bicep build'
+  name: 'bicep build'
   # This workflow contains a single job called "build"
-    runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+  steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-            creds: ${{ secrets.AZURE_SPN }}
-      - name: az bicep deploy
-        working-directory: '${{github.workspace}}/src/bicep'
-        run: |
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+       creds: ${{ secrets.AZURE_SPN }}
+    - name: az bicep deploy
+      working-directory: '${{github.workspace}}/src/bicep'
+      run: |
           az deployment group create --what-if --resource-group rg-demo --template-file ./storage_account.bicep
-
 deploy:
    name: 'bicep deploy'
   # This workflow contains a single job called "deploy"
    runs-on: ubuntu-latest
    needs: [build]
    environment: dev 
-   
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+       # Steps represent a sequence of tasks that will be executed as part of the job
+   steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+     - uses: actions/checkout@v4
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-            creds: ${{ secrets.AZURE_SPN }}
-      - name: az bicep deploy
-        working-directory: '${{github.workspace}}/src/bicep'
-        run: |
+     - name: Login to Azure
+       uses: azure/login@v1
+       with:
+         creds: ${{ secrets.AZURE_SPN }}
+     - name: az bicep deploy
+       working-directory: '${{github.workspace}}/src/bicep'
+       run: |
           az deployment group create --resource-group rg-demo --template-file ./storage_account.bicep
 
         
