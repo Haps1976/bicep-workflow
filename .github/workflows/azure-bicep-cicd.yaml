@@ -29,6 +29,10 @@ jobs:
         uses: azure/login@v1
         with:
             creds: ${{ secrets.AZURE_SPN }}
+      - name: az bicep deploy
+        run: |
+         az deployment group create --resource-group rg-demo --template-file .\storage_account.bicep
+
 
 
         
