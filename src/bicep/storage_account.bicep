@@ -10,7 +10,7 @@ var networkAcls = {
   defaultAction: 'Allow'
 }
 
-param allowBlobPublicAccess bool = false
+param allowBlobPublicAccess bool = true
 
 @description('Specify minimum TLS Version')
 @allowed([
